@@ -9,7 +9,7 @@ export const SignUp = () => {
 
   const signUpWithPassword = async (event) => {
     event.preventDefault();
-    const results = createUserWithEmailAndPassword(auth, email, password);
+    const results = await createUserWithEmailAndPassword(auth, email, password);
     console.log(results);
   };
   return (
@@ -40,7 +40,7 @@ export const SignUp = () => {
           />
         </div>
         <div className="buttonsContainer">
-          <button type="button">Create Account</button>
+          <button type="submit">Create Account</button>
         </div>
       </form>
     </div>

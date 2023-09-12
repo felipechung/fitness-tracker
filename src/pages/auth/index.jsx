@@ -10,15 +10,25 @@ export const Auth = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
+  const saveToLocalStorage = (results) => {
+    const userInfo = {
+      userId: results.user.uid,
+      email: results.user.email,
+    };
+    localStorage.setItem("auth", JSON.stringify(userInfo));
+  };
+
   const signInWithGoogle = async () => {
     const results = await signInWithPopup(auth, provider);
-    console.log(results);
+    saveToLocalStorage(results);
+    navigate("/fitness-tracker");
   };
 
   const signInWithPassword = async (event) => {
     event.preventDefault();
-    const results = signInWithEmailAndPassword(auth, email, password);
-    console.log(results);
+    const results = await signInWithEmailAndPassword(auth, email, password);
+    saveToLocalStorage(results);
+    navigate("/fitness-tracker");
   };
   return (
     <div className="loginContainer">
