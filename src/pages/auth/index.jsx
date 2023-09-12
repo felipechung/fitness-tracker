@@ -30,6 +30,7 @@ export const Auth = () => {
     saveToLocalStorage(results);
     navigate("/fitness-tracker");
   };
+
   return (
     <div className="loginContainer">
       <h1>Fitness tracker</h1>
