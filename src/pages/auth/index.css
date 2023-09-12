@@ -16,7 +16,8 @@
 }
 
 .buttonsContainer {
-  margin-top: 12px;
+  margin-top: 22px;
+  margin-bottom: 18px;
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -51,4 +52,13 @@
 
 svg {
   font-size: 21px;
+}
+
+form {
+  width: 100%;
+}
+
+.registerAccount {
+  color: #ddb218;
+  cursor: pointer;
 }
