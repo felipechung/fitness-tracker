@@ -1,18 +1,27 @@
 import "./App.css";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { Auth } from "./pages/auth";
-import { SignUp } from "./pages/signUp";
-import { FitnessTracker } from "./pages/fitnessTracker";
+import { BrowserRouter } from "react-router-dom";
+
+import { PrivateRoutes } from "./routes/PrivateRoutes";
+import { PublicRoutes } from "./routes/PublicRoutes";
+import { useEffect, useState } from "react";
+import { auth } from "./config/firebase.config";
 
 function App() {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    // Listen for Firebase auth state changes
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      setUser(user); // Set the user in state when auth state changes
+    });
+
+    // Clean up the listener when the component unmounts
+    return () => unsubscribe();
+  }, []);
+
+  console.log(user);
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Auth />} />
-        <Route path="/sign-up" element={<SignUp />} />
-        <Route path="/fitness-tracker" element={<FitnessTracker />} />
-      </Routes>
-    </BrowserRouter>
+    <BrowserRouter>{user ? <PrivateRoutes /> : <PublicRoutes />}</BrowserRouter>
   );
 }
 

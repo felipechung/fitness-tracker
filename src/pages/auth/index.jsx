@@ -15,7 +15,7 @@ export const Auth = () => {
       userId: results.user.uid,
       email: results.user.email,
     };
-    localStorage.setItem("auth", JSON.stringify(userInfo));
+    localStorage.setItem("userInfo", JSON.stringify(userInfo));
   };
 
   const signInWithGoogle = async () => {
