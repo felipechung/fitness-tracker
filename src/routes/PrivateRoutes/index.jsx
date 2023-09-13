@@ -1,6 +1,6 @@
-import { PrivateBase } from "../../components/privateBase";
-import { Route, Navigate, Routes } from "react-router-dom";
-import { FitnessTracker } from "../../pages/FitnessTracker";
+import { PrivateBase } from '../../components/privateBase';
+import { Route, Navigate, Routes } from 'react-router-dom';
+import { FitnessTracker } from '../../pages/FitnessTracker';
 
 export const PrivateRoutes = () => {
   return (
@@ -9,7 +9,7 @@ export const PrivateRoutes = () => {
         <Route path="/fitness-tracker" element={<FitnessTracker />} />
         <Route
           path="*"
-          element={<Navigate to={"/fitness-tracker"} replace />}
+          element={<Navigate to={'/fitness-tracker'} replace />}
         />
       </Routes>
     </PrivateBase>

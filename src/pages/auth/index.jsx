@@ -1,13 +1,13 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { FcGoogle } from "react-icons/fc";
-import { auth, provider } from "../../config/firebase.config";
-import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
-import "./index.css";
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { FcGoogle } from 'react-icons/fc';
+import { auth, provider } from '../../config/firebase.config';
+import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
+import './index.css';
 
 export const Auth = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
   const saveToLocalStorage = (results) => {
@@ -15,20 +15,20 @@ export const Auth = () => {
       userId: results.user.uid,
       email: results.user.email,
     };
-    localStorage.setItem("userInfo", JSON.stringify(userInfo));
+    localStorage.setItem('userInfo', JSON.stringify(userInfo));
   };
 
   const signInWithGoogle = async () => {
     const results = await signInWithPopup(auth, provider);
     saveToLocalStorage(results);
-    navigate("/fitness-tracker");
+    navigate('/fitness-tracker');
   };
 
   const signInWithPassword = async (event) => {
     event.preventDefault();
     const results = await signInWithEmailAndPassword(auth, email, password);
     saveToLocalStorage(results);
-    navigate("/fitness-tracker");
+    navigate('/fitness-tracker');
   };
 
   return (
@@ -77,10 +77,10 @@ export const Auth = () => {
           </button>
         </div>
         <span>
-          Not Registered yet?{" "}
+          Not Registered yet?{' '}
           <span
             className="registerAccount"
-            onClick={() => navigate("/sign-up")}
+            onClick={() => navigate('/sign-up')}
           >
             Create an Account
           </span>

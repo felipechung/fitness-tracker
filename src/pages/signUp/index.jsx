@@ -1,11 +1,11 @@
-import { useState } from "react";
-import { auth } from "../../config/firebase.config";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import "../Auth/index.css";
+import { useState } from 'react';
+import { auth } from '../../config/firebase.config';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import '../Auth/index.css';
 
 export const SignUp = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const signUpWithPassword = async (event) => {
     event.preventDefault();
