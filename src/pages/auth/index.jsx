@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FcGoogle } from 'react-icons/fc';
 import { auth, provider } from '../../config/firebase.config';
+import { FcGoogle } from 'react-icons/fc';
 import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 import './index.css';
 
@@ -21,14 +21,12 @@ export const Auth = () => {
   const signInWithGoogle = async () => {
     const results = await signInWithPopup(auth, provider);
     saveToLocalStorage(results);
-    navigate('/fitness-tracker');
   };
 
   const signInWithPassword = async (event) => {
     event.preventDefault();
     const results = await signInWithEmailAndPassword(auth, email, password);
     saveToLocalStorage(results);
-    navigate('/fitness-tracker');
   };
 
   return (

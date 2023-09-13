@@ -1,4 +1,3 @@
-import './App.css';
 import { BrowserRouter } from 'react-router-dom';
 
 import { PrivateRoutes } from './routes/PrivateRoutes';
@@ -10,16 +9,13 @@ function App() {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    // Listen for Firebase auth state changes
     const unsubscribe = auth.onAuthStateChanged((user) => {
-      setUser(user); // Set the user in state when auth state changes
+      setUser(user);
     });
 
-    // Clean up the listener when the component unmounts
     return () => unsubscribe();
   }, []);
 
-  console.log(user);
   return (
     <BrowserRouter>{user ? <PrivateRoutes /> : <PublicRoutes />}</BrowserRouter>
   );
