@@ -12,9 +12,11 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
-
+import DashboardIcon from '@mui/icons-material/Dashboard';
 import Button from '@mui/material/Button';
-
+import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
+import EventNoteIcon from '@mui/icons-material/EventNote';
+import SettingsIcon from '@mui/icons-material/Settings';
 import { auth } from '../../config/firebase.config';
 
 const drawerWidth = 240;
@@ -63,18 +65,19 @@ export const Sidebar = () => {
         <Toolbar />
         <Divider />
         <List>
-          {['My Progress', 'Workouts', 'Training Plan', 'Settings'].map(
-            (text, index) => (
-              <ListItem key={text} disablePadding>
-                <ListItemButton>
-                  <ListItemIcon>
-                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                  </ListItemIcon>
-                  <ListItemText primary={text} />
-                </ListItemButton>
-              </ListItem>
-            )
-          )}
+          {[
+            { title: 'My Progress', icon: <DashboardIcon /> },
+            { title: 'Workouts', icon: <FitnessCenterIcon /> },
+            { title: 'Training Plan', icon: <EventNoteIcon /> },
+            { title: 'Settings', icon: <SettingsIcon /> },
+          ].map(({ title, icon }) => (
+            <ListItem key={title} disablePadding>
+              <ListItemButton>
+                <ListItemIcon>{icon}</ListItemIcon>
+                <ListItemText primary={title} />
+              </ListItemButton>
+            </ListItem>
+          ))}
         </List>
       </Drawer>
     </Box>
