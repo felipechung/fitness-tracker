@@ -10,18 +10,23 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import Button from '@mui/material/Button';
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 import EventNoteIcon from '@mui/icons-material/EventNote';
 import SettingsIcon from '@mui/icons-material/Settings';
+
+import { useNavigate, useLocation } from 'react-router-dom';
+
 import { auth } from '../../config/firebase.config';
+import { routes } from '../../routes/routes';
 
 const drawerWidth = 240;
 
 export const Sidebar = () => {
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
+
   const handleLogout = async () => {
     try {
       await auth.signOut();
@@ -66,13 +71,32 @@ export const Sidebar = () => {
         <Divider />
         <List>
           {[
-            { title: 'My Progress', icon: <DashboardIcon /> },
-            { title: 'Workouts', icon: <FitnessCenterIcon /> },
-            { title: 'Training Plan', icon: <EventNoteIcon /> },
-            { title: 'Settings', icon: <SettingsIcon /> },
-          ].map(({ title, icon }) => (
+            {
+              title: 'My Progress',
+              pathName: routes.dashboard,
+              icon: <DashboardIcon />,
+            },
+            {
+              title: 'Workouts',
+              pathName: routes.workouts,
+              icon: <FitnessCenterIcon />,
+            },
+            {
+              title: 'Training Plan',
+              pathName: routes.trainingPlan,
+              icon: <EventNoteIcon />,
+            },
+            {
+              title: 'Settings',
+              pathName: routes.settings,
+              icon: <SettingsIcon />,
+            },
+          ].map(({ title, icon, pathName }) => (
             <ListItem key={title} disablePadding>
-              <ListItemButton>
+              <ListItemButton
+                selected={pathname === pathName}
+                onClick={() => navigate(pathName)}
+              >
                 <ListItemIcon>{icon}</ListItemIcon>
                 <ListItemText primary={title} />
               </ListItemButton>
