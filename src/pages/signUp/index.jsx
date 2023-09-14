@@ -12,6 +12,7 @@ export const SignUp = () => {
     const results = await createUserWithEmailAndPassword(auth, email, password);
     console.log(results);
   };
+
   return (
     <div className="loginContainer">
       <h1>Fitness tracker</h1>

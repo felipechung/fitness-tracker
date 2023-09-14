@@ -2,22 +2,15 @@ import { BrowserRouter } from 'react-router-dom';
 
 import { PrivateRoutes } from './routes/PrivateRoutes';
 import { PublicRoutes } from './routes/PublicRoutes';
-import { useEffect, useState } from 'react';
-import { auth } from './config/firebase.config';
+
+import { useAuth } from './contexts/Auth';
 
 function App() {
-  const [user, setUser] = useState(null);
-
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      setUser(user);
-    });
-
-    return () => unsubscribe();
-  }, []);
-
+  const { userInfo } = useAuth();
   return (
-    <BrowserRouter>{user ? <PrivateRoutes /> : <PublicRoutes />}</BrowserRouter>
+    <BrowserRouter>
+      {userInfo ? <PrivateRoutes /> : <PublicRoutes />}
+    </BrowserRouter>
   );
 }
 

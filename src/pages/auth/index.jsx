@@ -4,19 +4,14 @@ import { auth, provider } from '../../config/firebase.config';
 import { FcGoogle } from 'react-icons/fc';
 import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 import './index.css';
+import { useAuth } from '../../contexts/Auth';
 
 export const Auth = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-  const saveToLocalStorage = (results) => {
-    const userInfo = {
-      userId: results.user.uid,
-      email: results.user.email,
-    };
-    localStorage.setItem('userInfo', JSON.stringify(userInfo));
-  };
+  const { saveToLocalStorage } = useAuth();
 
   const signInWithGoogle = async () => {
     const results = await signInWithPopup(auth, provider);
