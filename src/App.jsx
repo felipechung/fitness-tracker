@@ -6,10 +6,10 @@ import { PublicRoutes } from './routes/PublicRoutes';
 import { useAuth } from './contexts/Auth';
 
 function App() {
-  const { userInfo } = useAuth();
+  const { authorized } = useAuth();
   return (
     <BrowserRouter>
-      {userInfo ? <PrivateRoutes /> : <PublicRoutes />}
+      {authorized ? <PrivateRoutes /> : <PublicRoutes />}
     </BrowserRouter>
   );
 }
