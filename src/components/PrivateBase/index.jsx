@@ -1,10 +1,11 @@
 import { Sidebar } from '../Sidebar';
+import './index.css';
 
 export const PrivateBase = ({ children }) => {
   return (
-    <div>
+    <div className="container">
       <Sidebar />
-      <div>{children}</div>
+      <div className="content">{children}</div>
     </div>
   );
 };

@@ -7,6 +7,7 @@ import { useAuth } from './contexts/Auth';
 
 function App() {
   const { authorized } = useAuth();
+
   return (
     <BrowserRouter>
       {authorized ? <PrivateRoutes /> : <PublicRoutes />}
