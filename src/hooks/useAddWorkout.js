@@ -3,10 +3,19 @@ import { db } from '../config/firebase.config';
 export const useAddWorkout = () => {
   const workoutsCollectionRef = collection(db, 'workouts');
 
-  const addWorkout = async () => {
+  const addWorkout = async ({ userId, date, exercises }) => {
     await addDoc(workoutsCollectionRef, {
-      date: '',
-      exercises: [],
+      userId,
+      date,
+      exercises,
+      //   exercises: [
+      //     {
+      //       exerciseName: '',
+      //       sets: '',
+      //       reps: '',
+      //       weight: '',
+      //     },
+      //   ],
     });
   };
   return { addWorkout };

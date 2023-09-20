@@ -1,9 +1,11 @@
 import { useState } from 'react';
+import { useAuth } from '../../contexts/Auth';
 import './index.css';
 import { ModalComponent } from '../../components/Modal';
 import Button from '@mui/material/Button';
 
 import AddIcon from '@mui/icons-material/Add';
+import { useAddWorkout } from '../../hooks/useAddWorkout';
 export const Workouts = () => {
   const [open, setOpen] = useState(false);
   const [exerciseName, setExerciseName] = useState('');
@@ -11,8 +13,20 @@ export const Workouts = () => {
   const [reps, setReps] = useState('');
   const [weight, setWeight] = useState('');
 
+  const { userInfo } = useAuth();
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  const { addWorkout } = useAddWorkout();
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    addWorkout({
+      userId: userInfo.uid,
+      date: '2023/09/20',
+      exercises: [],
+    });
+  };
   return (
     <div className="workoutPage">
       <div className="header">
@@ -28,7 +42,7 @@ export const Workouts = () => {
         </Button>
       </div>
       <ModalComponent open={open} handleClose={handleClose}>
-        <form onSubmit={() => console.log('test')}>
+        <form onSubmit={handleSubmit}>
           <div className="inputGroup">
             <label htmlFor="Exercise Name" className="whiteBackground">
               Exercise Name
