@@ -10,3 +10,14 @@
   flex-direction: column;
   flex: 1;
 }
+
+.whiteBackground {
+  color: #2e2e2e;
+  font-weight: 600;
+}
+
+.imgContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
