@@ -1,12 +1,14 @@
 .formContainer {
   display: grid;
   gap: 12px;
-  max-height: 400px;
 }
 
 .formColumn:nth-child(2) {
-  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
   grid-column: 2;
+  max-height: 400px;
 }
 
 .confirmButton {
