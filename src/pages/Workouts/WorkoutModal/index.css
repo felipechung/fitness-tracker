@@ -1,0 +1,18 @@
+.formContainer {
+  display: grid;
+  gap: 12px;
+  max-height: 400px;
+}
+
+.formColumn:nth-child(2) {
+  overflow-y: auto;
+  grid-column: 2;
+}
+
+.confirmButton {
+  background-color: #0abe0a;
+  margin-top: 10px;
+}
+.confirmButton:hover {
+  background-color: #0c880c;
+}
