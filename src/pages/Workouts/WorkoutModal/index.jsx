@@ -4,6 +4,7 @@ import './index.css';
 import { SummaryCard } from './SummaryCard';
 
 export const WorkoutModal = ({ handleSubmit, open, handleClose }) => {
+  const [workoutName, setWorkoutName] = useState('');
   const [date, setDate] = useState('');
   const [exerciseName, setExerciseName] = useState('');
   const [sets, setSets] = useState('');
@@ -12,19 +13,39 @@ export const WorkoutModal = ({ handleSubmit, open, handleClose }) => {
   return (
     <ModalComponent open={open} handleClose={handleClose} width={600}>
       <form onSubmit={handleSubmit}>
-        <div className="inputGroup">
-          <label htmlFor="date" className="whiteBackground">
-            Date
-          </label>
-          <input
-            type="text"
-            id="date"
-            name="date"
-            required
-            value={date}
-            onChange={(event) => setDate(event.target.value)}
-          />
+        <div className="formContainer">
+          <div className="dateInputColumn">
+            <div className="inputGroup">
+              <label htmlFor="date" className="whiteBackground">
+                Date
+              </label>
+              <input
+                type="date"
+                id="date"
+                name="date"
+                required
+                value={date}
+                onChange={(event) => setDate(event.target.value)}
+              />
+            </div>
+          </div>
+          <div className="formColumn">
+            <div className="inputGroup">
+              <label htmlFor="workoutName" className="whiteBackground">
+                Workout Name
+              </label>
+              <input
+                type="text"
+                id="workoutName"
+                name="workoutName"
+                required
+                value={workoutName}
+                onChange={(event) => setWorkoutName(event.target.value)}
+              />
+            </div>
+          </div>
         </div>
+
         <div className="formContainer">
           <div className="formColumn">
             <div className="inputGroup">
@@ -46,7 +67,7 @@ export const WorkoutModal = ({ handleSubmit, open, handleClose }) => {
                 # of Sets
               </label>
               <input
-                type="text"
+                type="number"
                 id="sets"
                 name="sets"
                 required
@@ -60,7 +81,7 @@ export const WorkoutModal = ({ handleSubmit, open, handleClose }) => {
                 # of Reps
               </label>
               <input
-                type="text"
+                type="number"
                 id="reps"
                 name="reps"
                 required
@@ -74,7 +95,7 @@ export const WorkoutModal = ({ handleSubmit, open, handleClose }) => {
                 Weight
               </label>
               <input
-                type="text"
+                type="number"
                 id="weight"
                 name="weight"
                 required

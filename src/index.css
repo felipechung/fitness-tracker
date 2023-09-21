@@ -71,6 +71,20 @@ input:focus {
   outline: none;
 }
 
+input[type='date']::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  border-radius: 4px;
+  margin-right: 2px;
+  filter: invert(14%) sepia(8%) saturate(0%) hue-rotate(168deg) brightness(101%)
+    contrast(0%);
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
 label {
   color: white;
   font-weight: 500;
