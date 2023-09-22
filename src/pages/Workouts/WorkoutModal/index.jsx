@@ -1,18 +1,38 @@
+import * as yup from 'yup';
+import { useFormik } from 'formik';
 import { ModalComponent } from '../../../components/Modal';
-import { useState } from 'react';
-import './index.css';
 import { SummaryCard } from './SummaryCard';
 
+import './index.css';
+
 export const WorkoutModal = ({ handleSubmit, open, handleClose }) => {
-  const [workoutName, setWorkoutName] = useState('');
-  const [date, setDate] = useState('');
-  const [exerciseName, setExerciseName] = useState('');
-  const [sets, setSets] = useState('');
-  const [reps, setReps] = useState('');
-  const [weight, setWeight] = useState('');
+  const formik = useFormik({
+    initialValues: {
+      date: '',
+      workoutName: '',
+      exerciseName: '',
+      sets: '',
+      reps: '',
+      weight: '',
+    },
+    validationSchema: yup.object({
+      date: yup.string().required('Campo obrigatório'),
+      workoutName: yup.string().required('Campo obrigatório'),
+      exerciseName: yup.string().required('Campo obrigatório'),
+      sets: yup.string().required('Campo obrigatório'),
+      reps: yup.string().required('Campo obrigatório'),
+      weight: yup.string().required('Campo obrigatório'),
+    }),
+    onSubmit: (values) => {
+      handleSubmit(values);
+    },
+  });
+
+  console.log(formik.values);
+
   return (
     <ModalComponent open={open} handleClose={handleClose} width={600}>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={formik.handleSubmit}>
         <div className="formContainer">
           <div className="dateInputColumn">
             <div className="inputGroup">
@@ -24,8 +44,9 @@ export const WorkoutModal = ({ handleSubmit, open, handleClose }) => {
                 id="date"
                 name="date"
                 required
-                value={date}
-                onChange={(event) => setDate(event.target.value)}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.date}
               />
             </div>
           </div>
@@ -39,8 +60,9 @@ export const WorkoutModal = ({ handleSubmit, open, handleClose }) => {
                 id="workoutName"
                 name="workoutName"
                 required
-                value={workoutName}
-                onChange={(event) => setWorkoutName(event.target.value)}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.workoutName}
               />
             </div>
           </div>
@@ -57,8 +79,9 @@ export const WorkoutModal = ({ handleSubmit, open, handleClose }) => {
                 id="exerciseName"
                 name="exerciseName"
                 required
-                value={exerciseName}
-                onChange={(event) => setExerciseName(event.target.value)}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.exerciseName}
               />
             </div>
 
@@ -71,8 +94,9 @@ export const WorkoutModal = ({ handleSubmit, open, handleClose }) => {
                 id="sets"
                 name="sets"
                 required
-                value={sets}
-                onChange={(event) => setSets(event.target.value)}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.sets}
               />
             </div>
 
@@ -85,8 +109,9 @@ export const WorkoutModal = ({ handleSubmit, open, handleClose }) => {
                 id="reps"
                 name="reps"
                 required
-                value={reps}
-                onChange={(event) => setReps(event.target.value)}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.reps}
               />
             </div>
 
@@ -99,8 +124,9 @@ export const WorkoutModal = ({ handleSubmit, open, handleClose }) => {
                 id="weight"
                 name="weight"
                 required
-                value={weight}
-                onChange={(event) => setWeight(event.target.value)}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.weight}
               />
             </div>
 
