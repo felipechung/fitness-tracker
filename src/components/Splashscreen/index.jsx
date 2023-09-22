@@ -1,3 +1,5 @@
+import { CircularLoading } from '../CircularLoading';
+
 export const Splashscreen = () => {
-  return <div>Splash screen</div>;
+  return <CircularLoading />;
 };
