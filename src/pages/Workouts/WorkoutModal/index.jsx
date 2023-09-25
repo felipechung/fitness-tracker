@@ -4,8 +4,33 @@ import { ModalComponent } from '../../../components/Modal';
 import { SummaryCard } from './SummaryCard';
 
 import './index.css';
+import { useState } from 'react';
+import { useAddWorkout } from '../../../hooks/useAddWorkout';
+import { useAuth } from '../../../contexts/Auth';
 
-export const WorkoutModal = ({ handleSubmit, open, handleClose }) => {
+export const WorkoutModal = ({ open, handleClose }) => {
+  const [exerciseList, setExerciseList] = useState([]);
+  const { userInfo } = useAuth();
+
+  const { addWorkout } = useAddWorkout();
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    addWorkout({
+      userId: userInfo.uid,
+      date: '2023/09/20',
+      workoutName: '',
+      exercises: [
+        {
+          exerciseName: '',
+          sets: '',
+          reps: '',
+          weight: '',
+        },
+      ],
+    });
+  };
+
   const formik = useFormik({
     initialValues: {
       date: '',
@@ -25,10 +50,47 @@ export const WorkoutModal = ({ handleSubmit, open, handleClose }) => {
     }),
     onSubmit: (values) => {
       handleSubmit(values);
+      handleClose();
     },
   });
 
-  console.log(formik.values);
+  const handleAddExercise = () => {
+    formik.setTouched({
+      workoutName: true,
+      date: true,
+      exerciseName: true,
+      sets: true,
+      reps: true,
+      weight: true,
+    });
+    formik.validateForm().then((errors) => {
+      if (Object.keys(errors).length === 0) {
+        setExerciseList([
+          ...exerciseList,
+          {
+            exerciseName: formik.values.exerciseName,
+            sets: formik.values.sets,
+            reps: formik.values.reps,
+            weight: formik.values.weight,
+          },
+        ]);
+
+        formik.setValues({
+          ...formik.values,
+          exerciseName: '',
+          sets: '',
+          reps: '',
+          weight: '',
+        });
+      }
+    });
+  };
+
+  const deleteExercise = (indexToDelete) => {
+    setExerciseList((prevExerciseList) => {
+      return prevExerciseList.filter((_, index) => index !== indexToDelete);
+    });
+  };
 
   return (
     <ModalComponent open={open} handleClose={handleClose} width={600}>
@@ -48,6 +110,9 @@ export const WorkoutModal = ({ handleSubmit, open, handleClose }) => {
                 onBlur={formik.handleBlur}
                 value={formik.values.date}
               />
+              {formik.touched.date && formik.errors.date && (
+                <div className="errorMessage">Campo obrigatório</div>
+              )}
             </div>
           </div>
           <div className="formColumn">
@@ -65,6 +130,9 @@ export const WorkoutModal = ({ handleSubmit, open, handleClose }) => {
                 value={formik.values.workoutName}
               />
             </div>
+            {formik.touched.workoutName && formik.errors.workoutName && (
+              <div className="errorMessage">Campo obrigatório</div>
+            )}
           </div>
         </div>
 
@@ -83,6 +151,9 @@ export const WorkoutModal = ({ handleSubmit, open, handleClose }) => {
                 onBlur={formik.handleBlur}
                 value={formik.values.exerciseName}
               />
+              {formik.touched.exerciseName && formik.errors.exerciseName && (
+                <div className="errorMessage">Campo obrigatório</div>
+              )}
             </div>
 
             <div className="inputGroup">
@@ -98,6 +169,9 @@ export const WorkoutModal = ({ handleSubmit, open, handleClose }) => {
                 onBlur={formik.handleBlur}
                 value={formik.values.sets}
               />
+              {formik.touched.sets && formik.errors.sets && (
+                <div className="errorMessage">Campo obrigatório</div>
+              )}
             </div>
 
             <div className="inputGroup">
@@ -113,6 +187,9 @@ export const WorkoutModal = ({ handleSubmit, open, handleClose }) => {
                 onBlur={formik.handleBlur}
                 value={formik.values.reps}
               />
+              {formik.touched.reps && formik.errors.reps && (
+                <div className="errorMessage">Campo obrigatório</div>
+              )}
             </div>
 
             <div className="inputGroup">
@@ -128,15 +205,30 @@ export const WorkoutModal = ({ handleSubmit, open, handleClose }) => {
                 onBlur={formik.handleBlur}
                 value={formik.values.weight}
               />
+              {formik.touched.weight && formik.errors.weight && (
+                <div className="errorMessage">Campo obrigatório</div>
+              )}
             </div>
 
-            <button type="submit" className="confirmButton">
+            <button
+              type="button"
+              className="confirmButton"
+              onClick={handleAddExercise}
+            >
               Add Exercise
             </button>
           </div>
-          <div className="formColumn">
-            <SummaryCard />
-          </div>
+          {!!exerciseList.length && (
+            <div className="formColumn">
+              {exerciseList.map((exercise, index) => (
+                <SummaryCard
+                  exercise={exercise}
+                  key={index}
+                  handleDelete={() => deleteExercise(index)}
+                />
+              ))}
+            </div>
+          )}
         </div>
 
         <div className="buttonsContainer">
