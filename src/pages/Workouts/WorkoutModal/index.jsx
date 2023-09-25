@@ -41,12 +41,12 @@ export const WorkoutModal = ({ open, handleClose }) => {
       weight: '',
     },
     validationSchema: yup.object({
-      date: yup.string().required('Campo obrigatório'),
-      workoutName: yup.string().required('Campo obrigatório'),
-      exerciseName: yup.string().required('Campo obrigatório'),
-      sets: yup.string().required('Campo obrigatório'),
-      reps: yup.string().required('Campo obrigatório'),
-      weight: yup.string().required('Campo obrigatório'),
+      date: yup.string().required('Required field'),
+      workoutName: yup.string().required('Required field'),
+      exerciseName: yup.string().required('Required field'),
+      sets: yup.string().required('Required field'),
+      reps: yup.string().required('Required field'),
+      weight: yup.string().required('Required field'),
     }),
     onSubmit: (values) => {
       handleSubmit(values);
@@ -111,7 +111,7 @@ export const WorkoutModal = ({ open, handleClose }) => {
                 value={formik.values.date}
               />
               {formik.touched.date && formik.errors.date && (
-                <div className="errorMessage">Campo obrigatório</div>
+                <div className="errorMessage">{formik.errors.date}</div>
               )}
             </div>
           </div>
@@ -131,7 +131,7 @@ export const WorkoutModal = ({ open, handleClose }) => {
               />
             </div>
             {formik.touched.workoutName && formik.errors.workoutName && (
-              <div className="errorMessage">Campo obrigatório</div>
+              <div className="errorMessage">{formik.errors.workoutName}</div>
             )}
           </div>
         </div>
@@ -152,7 +152,7 @@ export const WorkoutModal = ({ open, handleClose }) => {
                 value={formik.values.exerciseName}
               />
               {formik.touched.exerciseName && formik.errors.exerciseName && (
-                <div className="errorMessage">Campo obrigatório</div>
+                <div className="errorMessage">{formik.errors.exerciseName}</div>
               )}
             </div>
 
@@ -170,7 +170,7 @@ export const WorkoutModal = ({ open, handleClose }) => {
                 value={formik.values.sets}
               />
               {formik.touched.sets && formik.errors.sets && (
-                <div className="errorMessage">Campo obrigatório</div>
+                <div className="errorMessage">{formik.errors.sets}</div>
               )}
             </div>
 
@@ -188,7 +188,7 @@ export const WorkoutModal = ({ open, handleClose }) => {
                 value={formik.values.reps}
               />
               {formik.touched.reps && formik.errors.reps && (
-                <div className="errorMessage">Campo obrigatório</div>
+                <div className="errorMessage">{formik.errors.reps}</div>
               )}
             </div>
 
@@ -206,7 +206,7 @@ export const WorkoutModal = ({ open, handleClose }) => {
                 value={formik.values.weight}
               />
               {formik.touched.weight && formik.errors.weight && (
-                <div className="errorMessage">Campo obrigatório</div>
+                <div className="errorMessage">{formik.errors.weight}</div>
               )}
             </div>
 
