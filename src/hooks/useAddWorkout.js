@@ -8,14 +8,6 @@ export const useAddWorkout = () => {
       userId,
       date,
       exercises,
-      //   exercises: [
-      //     {
-      //       exerciseName: '',
-      //       sets: '',
-      //       reps: '',
-      //       weight: '',
-      //     },
-      //   ],
     });
   };
   return { addWorkout };

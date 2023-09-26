@@ -4,9 +4,12 @@ import Button from '@mui/material/Button';
 
 import AddIcon from '@mui/icons-material/Add';
 import { WorkoutModal } from './WorkoutModal';
+import { useGetWorkouts } from '../../hooks/useGetWorkouts';
 
 export const Workouts = () => {
   const [open, setOpen] = useState(false);
+
+  const { workoutList } = useGetWorkouts();
 
   return (
     <div className="workoutPage">
@@ -35,6 +38,11 @@ export const Workouts = () => {
           Begin by adding your first workout!
         </span>
       </div>
+      <ul>
+        {workoutList.map((workout, index) => {
+          return <li key={index}>{workout.date}</li>;
+        })}
+      </ul>
     </div>
   );
 };
