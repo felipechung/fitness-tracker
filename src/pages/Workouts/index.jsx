@@ -27,9 +27,13 @@ export const Workouts = () => {
         <img
           src="/training.svg"
           alt="Woman working out"
-          width="350"
-          height="450"
+          width="300"
+          height="320"
         />
+        <span className="emptyMessage">Ready to work out?</span>
+        <span className="emptyMessage">
+          Begin by adding your first workout!
+        </span>
       </div>
     </div>
   );

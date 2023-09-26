@@ -7,28 +7,24 @@ import './index.css';
 import { useState } from 'react';
 import { useAddWorkout } from '../../../hooks/useAddWorkout';
 import { useAuth } from '../../../contexts/Auth';
+import { CustomizedSnackbar } from '../../../components/Snackbar';
 
 export const WorkoutModal = ({ open, handleClose }) => {
   const [exerciseList, setExerciseList] = useState([]);
-  const { userInfo } = useAuth();
 
+  const [openSnack, setOpenSnack] = useState(false);
+  const [snackMessage, setSnackMessage] = useState('');
+  const [snackType, setSnackType] = useState('error');
+
+  const { userInfo } = useAuth();
   const { addWorkout } = useAddWorkout();
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    addWorkout({
-      userId: userInfo.uid,
-      date: '2023/09/20',
-      workoutName: '',
-      exercises: [
-        {
-          exerciseName: '',
-          sets: '',
-          reps: '',
-          weight: '',
-        },
-      ],
-    });
+  const handleCloseSnack = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpenSnack(false);
   };
 
   const formik = useFormik({
@@ -48,11 +44,21 @@ export const WorkoutModal = ({ open, handleClose }) => {
       reps: yup.string().required('Required field'),
       weight: yup.string().required('Required field'),
     }),
-    onSubmit: (values) => {
-      handleSubmit(values);
-      handleClose();
-    },
   });
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    await addWorkout({
+      userId: userInfo.uid,
+      date: formik.values.date,
+      workoutName: formik.values.workoutName,
+      exercises: exerciseList,
+    });
+    setSnackMessage('Workout added!');
+    setSnackType('success');
+    handleClose();
+  };
 
   const handleAddExercise = () => {
     formik.setTouched({
@@ -82,6 +88,10 @@ export const WorkoutModal = ({ open, handleClose }) => {
           reps: '',
           weight: '',
         });
+      } else {
+        setSnackType('error');
+        setSnackMessage('Missing fields');
+        setOpenSnack(true);
       }
     });
   };
@@ -93,148 +103,136 @@ export const WorkoutModal = ({ open, handleClose }) => {
   };
 
   return (
-    <ModalComponent open={open} handleClose={handleClose} width={600}>
-      <form onSubmit={formik.handleSubmit}>
-        <div className="formContainer">
-          <div className="dateInputColumn">
-            <div className="inputGroup">
-              <label htmlFor="date" className="whiteBackground">
-                Date
-              </label>
-              <input
-                type="date"
-                id="date"
-                name="date"
-                required
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.date}
-              />
-              {formik.touched.date && formik.errors.date && (
-                <div className="errorMessage">{formik.errors.date}</div>
-              )}
+    <>
+      <ModalComponent open={open} handleClose={handleClose} width={600}>
+        <form onSubmit={formik.handleSubmit}>
+          <div className="formContainer">
+            <div className="dateInputColumn">
+              <div className="inputGroup">
+                <label htmlFor="date" className="whiteBackground">
+                  Date
+                </label>
+                <input
+                  type="date"
+                  id="date"
+                  name="date"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.date}
+                />
+              </div>
+            </div>
+            <div className="formColumn">
+              <div className="inputGroup">
+                <label htmlFor="workoutName" className="whiteBackground">
+                  Workout Name
+                </label>
+                <input
+                  type="text"
+                  id="workoutName"
+                  name="workoutName"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.workoutName}
+                />
+              </div>
             </div>
           </div>
-          <div className="formColumn">
-            <div className="inputGroup">
-              <label htmlFor="workoutName" className="whiteBackground">
-                Workout Name
-              </label>
-              <input
-                type="text"
-                id="workoutName"
-                name="workoutName"
-                required
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.workoutName}
-              />
+
+          <div className="formContainer">
+            <div className="formColumn">
+              <div className="inputGroup">
+                <label htmlFor="Exercise Name" className="whiteBackground">
+                  Exercise Name
+                </label>
+                <input
+                  type="text"
+                  id="exerciseName"
+                  name="exerciseName"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.exerciseName}
+                />
+              </div>
+
+              <div className="inputGroup">
+                <label htmlFor="sets" className="whiteBackground">
+                  # of Sets
+                </label>
+                <input
+                  type="number"
+                  id="sets"
+                  name="sets"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.sets}
+                />
+              </div>
+
+              <div className="inputGroup">
+                <label htmlFor="reps" className="whiteBackground">
+                  # of Reps
+                </label>
+                <input
+                  type="number"
+                  id="reps"
+                  name="reps"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.reps}
+                />
+              </div>
+
+              <div className="inputGroup">
+                <label htmlFor="weight" className="whiteBackground">
+                  Weight (kg)
+                </label>
+                <input
+                  type="number"
+                  id="weight"
+                  name="weight"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.weight}
+                />
+              </div>
+
+              <button
+                type="button"
+                className="confirmButton"
+                onClick={handleAddExercise}
+              >
+                Add Exercise
+              </button>
             </div>
-            {formik.touched.workoutName && formik.errors.workoutName && (
-              <div className="errorMessage">{formik.errors.workoutName}</div>
+            {!!exerciseList.length && (
+              <div className="formColumn">
+                {exerciseList.map((exercise, index) => (
+                  <SummaryCard
+                    exercise={exercise}
+                    key={index}
+                    handleDelete={() => deleteExercise(index)}
+                  />
+                ))}
+              </div>
             )}
           </div>
-        </div>
 
-        <div className="formContainer">
-          <div className="formColumn">
-            <div className="inputGroup">
-              <label htmlFor="Exercise Name" className="whiteBackground">
-                Exercise Name
-              </label>
-              <input
-                type="text"
-                id="exerciseName"
-                name="exerciseName"
-                required
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.exerciseName}
-              />
-              {formik.touched.exerciseName && formik.errors.exerciseName && (
-                <div className="errorMessage">{formik.errors.exerciseName}</div>
-              )}
-            </div>
-
-            <div className="inputGroup">
-              <label htmlFor="sets" className="whiteBackground">
-                # of Sets
-              </label>
-              <input
-                type="number"
-                id="sets"
-                name="sets"
-                required
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.sets}
-              />
-              {formik.touched.sets && formik.errors.sets && (
-                <div className="errorMessage">{formik.errors.sets}</div>
-              )}
-            </div>
-
-            <div className="inputGroup">
-              <label htmlFor="reps" className="whiteBackground">
-                # of Reps
-              </label>
-              <input
-                type="number"
-                id="reps"
-                name="reps"
-                required
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.reps}
-              />
-              {formik.touched.reps && formik.errors.reps && (
-                <div className="errorMessage">{formik.errors.reps}</div>
-              )}
-            </div>
-
-            <div className="inputGroup">
-              <label htmlFor="weight" className="whiteBackground">
-                Weight
-              </label>
-              <input
-                type="number"
-                id="weight"
-                name="weight"
-                required
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.weight}
-              />
-              {formik.touched.weight && formik.errors.weight && (
-                <div className="errorMessage">{formik.errors.weight}</div>
-              )}
-            </div>
-
-            <button
-              type="button"
-              className="confirmButton"
-              onClick={handleAddExercise}
-            >
-              Add Exercise
-            </button>
-          </div>
           {!!exerciseList.length && (
-            <div className="formColumn">
-              {exerciseList.map((exercise, index) => (
-                <SummaryCard
-                  exercise={exercise}
-                  key={index}
-                  handleDelete={() => deleteExercise(index)}
-                />
-              ))}
+            <div className="buttonsContainer">
+              <button type="submit" onClick={handleSubmit}>
+                Add Workout
+              </button>
             </div>
           )}
-        </div>
-
-        <div className="buttonsContainer">
-          <button type="submit">Add Workout</button>
-        </div>
-      </form>
-    </ModalComponent>
+        </form>
+      </ModalComponent>
+      <CustomizedSnackbar
+        open={openSnack}
+        handleClose={handleCloseSnack}
+        message={snackMessage}
+        type={snackType}
+      />
+    </>
   );
 };
