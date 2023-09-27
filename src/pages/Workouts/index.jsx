@@ -5,6 +5,7 @@ import Button from '@mui/material/Button';
 import AddIcon from '@mui/icons-material/Add';
 import { WorkoutModal } from './WorkoutModal';
 import { useGetWorkouts } from '../../hooks/useGetWorkouts';
+import { WorkoutCard } from './WorkoutCard';
 
 export const Workouts = () => {
   const [open, setOpen] = useState(false);
@@ -26,23 +27,24 @@ export const Workouts = () => {
         </Button>
       </div>
       <WorkoutModal open={open} handleClose={() => setOpen(false)} />
-      <div className="imgContainer">
-        <img
-          src="/training.svg"
-          alt="Woman working out"
-          width="300"
-          height="320"
-        />
-        <span className="emptyMessage">Ready to work out?</span>
-        <span className="emptyMessage">
-          Begin by adding your first workout!
-        </span>
-      </div>
-      <ul>
-        {workoutList.map((workout, index) => {
-          return <li key={index}>{workout.date}</li>;
-        })}
-      </ul>
+      {!workoutList && (
+        <div className="imgContainer">
+          <img
+            src="/training.svg"
+            alt="Woman working out"
+            width="300"
+            height="320"
+          />
+          <span className="emptyMessage">Ready to work out?</span>
+          <span className="emptyMessage">
+            Begin by adding your first workout!
+          </span>
+        </div>
+      )}
+
+      {workoutList.map((workout, index) => {
+        return <WorkoutCard key={index} workout={workout} />;
+      })}
     </div>
   );
 };

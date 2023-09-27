@@ -1,0 +1,36 @@
+.cardContainer {
+  display: flex;
+  flex-direction: column;
+  width: 450px;
+  background-color: #ececec;
+  border-radius: 8px;
+  padding: 4px 8px;
+  margin-bottom: 16px;
+}
+
+.cardHeader {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.cardTitle {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.date {
+  font-size: 16px;
+  color: #808080;
+  font-weight: 600;
+}
+
+.cardBody {
+  display: flex;
+  flex-direction: column;
+}
+
+.exerciseRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
