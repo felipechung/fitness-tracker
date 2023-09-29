@@ -42,8 +42,8 @@ export const Workouts = () => {
         </div>
       )}
 
-      {workoutList.map((workout, index) => {
-        return <WorkoutCard key={index} workout={workout} />;
+      {workoutList.map((workout) => {
+        return <WorkoutCard key={workout.id} workout={workout} />;
       })}
     </div>
   );

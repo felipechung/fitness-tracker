@@ -55,8 +55,11 @@ export const WorkoutModal = ({ open, handleClose }) => {
       workoutName: formik.values.workoutName,
       exercises: exerciseList,
     });
+    setOpenSnack(true);
     setSnackMessage('Workout added!');
     setSnackType('success');
+    formik.resetForm();
+    setExerciseList([]);
     handleClose();
   };
 
