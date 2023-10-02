@@ -15,8 +15,12 @@ const theme = createTheme({
       main: '#ddb218',
       contrastText: '#fff',
     },
+    success: {
+      main: '#4caf50',
+      contrastText: '#fff',
+    },
     danger: {
-      main: 'red',
+      main: '#f44336',
       contrastText: '#fff',
     },
   },

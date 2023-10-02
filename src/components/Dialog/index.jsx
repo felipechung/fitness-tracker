@@ -5,6 +5,8 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
+import './index.css';
+
 export default function AlertDialog({
   title,
   message,
@@ -27,8 +29,10 @@ export default function AlertDialog({
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleConfirm} autoFocus>
+          <Button onClick={handleClose} color="danger" variant="contained">
+            Cancel
+          </Button>
+          <Button onClick={handleConfirm} color="success" variant="contained">
             Confirm
           </Button>
         </DialogActions>
