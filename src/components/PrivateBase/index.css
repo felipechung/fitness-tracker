@@ -1,6 +1,6 @@
 .content {
   display: flex;
-  height: 100vh;
+  /* height: 100vh; */
   margin-top: 64px;
   padding: 12px 24px;
 }

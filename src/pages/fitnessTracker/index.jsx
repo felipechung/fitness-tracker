@@ -1,5 +1,13 @@
 import Chart from 'react-apexcharts';
+import { useGetWorkouts } from '../../hooks/useGetWorkouts';
+import { TotalWeight } from '../../components/Charts/TotalWeight';
+import { TotalReps } from '../../components/Charts/TotalReps';
+import { TotalSets } from '../../components/Charts/TotalSets';
+
+import './index.css';
 export const FitnessTracker = () => {
+  const { workoutList } = useGetWorkouts();
+
   const data = {
     options: {
       chart: {
@@ -8,7 +16,22 @@ export const FitnessTracker = () => {
       xaxis: {
         categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998],
       },
+      title: {
+        text: 'Teste',
+        align: 'left',
+        margin: 10,
+        offsetX: 0,
+        offsetY: 0,
+        floating: false,
+        style: {
+          fontSize: '14px',
+          fontWeight: 'bold',
+          fontFamily: undefined,
+          color: '#263238',
+        },
+      },
     },
+
     series: [
       {
         name: 'series-1',
@@ -22,6 +45,20 @@ export const FitnessTracker = () => {
     options: {
       chart: {
         type: 'donut',
+      },
+      title: {
+        text: 'Teste',
+        align: 'left',
+        margin: 10,
+        offsetX: 0,
+        offsetY: 0,
+        floating: false,
+        style: {
+          fontSize: '14px',
+          fontWeight: 'bold',
+          fontFamily: undefined,
+          color: '#263238',
+        },
       },
       responsive: [
         {
@@ -39,26 +76,23 @@ export const FitnessTracker = () => {
     },
   };
   return (
-    <div>
-      <Chart
+    <div className="chartContainer">
+      {/* <Chart
         options={data.options}
         series={data.series}
         type="bar"
         width="500"
-      />
+      /> */}
 
-      <Chart
-        options={data.options}
-        series={data.series}
-        type="line"
-        width="500"
-      />
+      <TotalWeight workoutList={workoutList} title="Total weight" />
+      <TotalReps workoutList={workoutList} title="Total reps" />
+      <TotalSets workoutList={workoutList} title="Total sets" />
 
-      <Chart
+      {/* <Chart
         options={donutData.options}
         series={donutData.series}
         type="donut"
-      />
+      /> */}
     </div>
   );
 };
