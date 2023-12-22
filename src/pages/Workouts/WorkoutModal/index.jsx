@@ -8,9 +8,11 @@ import { useState } from 'react';
 import { useAddWorkout } from '../../../hooks/useAddWorkout';
 import { useAuth } from '../../../contexts/Auth';
 import { CustomizedSnackbar } from '../../../components/Snackbar';
+import { useGetWorkoutCategory } from '../../../hooks/useGetWorkoutCategory';
 
 export const WorkoutModal = ({ open, handleClose }) => {
   const [exerciseList, setExerciseList] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState('');
 
   const [openSnack, setOpenSnack] = useState(false);
   const [snackMessage, setSnackMessage] = useState('');
@@ -18,6 +20,7 @@ export const WorkoutModal = ({ open, handleClose }) => {
 
   const { userInfo } = useAuth();
   const { addWorkout } = useAddWorkout();
+  const { workoutCategoryList } = useGetWorkoutCategory();
 
   const handleCloseSnack = (event, reason) => {
     if (reason === 'clickaway') {
@@ -25,6 +28,10 @@ export const WorkoutModal = ({ open, handleClose }) => {
     }
 
     setOpenSnack(false);
+  };
+
+  const handleCategoryChange = (event) => {
+    setSelectedCategory(event.target.value);
   };
 
   const formik = useFormik({
@@ -54,6 +61,7 @@ export const WorkoutModal = ({ open, handleClose }) => {
       date: formik.values.date,
       workoutName: formik.values.workoutName,
       exercises: exerciseList,
+      category: selectedCategory,
     });
     setOpenSnack(true);
     setSnackMessage('Workout added!');
@@ -144,6 +152,22 @@ export const WorkoutModal = ({ open, handleClose }) => {
 
           <div className="formContainer">
             <div className="formColumn">
+              <div className="inputGroup">
+                <label htmlFor="Category" className="whiteBackground">
+                  Category
+                </label>
+
+                <select
+                  value={selectedCategory}
+                  onChange={handleCategoryChange}
+                >
+                  {workoutCategoryList.map((category) => (
+                    <option key={category.id} value={category.name}>
+                      {category.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
               <div className="inputGroup">
                 <label htmlFor="Exercise Name" className="whiteBackground">
                   Exercise Name
