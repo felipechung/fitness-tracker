@@ -10,7 +10,7 @@ import {
 } from 'firebase/firestore';
 import { useAuth } from '../contexts/Auth';
 
-export const useGetWorkouts = () => {
+export const useGetWorkouts = (filterOptions) => {
   const [workoutList, setWorkoutList] = useState([]);
   const { userInfo } = useAuth();
 
@@ -19,11 +19,26 @@ export const useGetWorkouts = () => {
   const getWorkoutList = async () => {
     let unsubscribe;
     try {
-      const queryWorkouts = query(
+      let queryWorkouts = query(
         workoutsCollectionRef,
         where('userId', '==', userInfo.uid),
         orderBy('date')
       );
+
+      if (filterOptions.category) {
+        queryWorkouts = query(
+          queryWorkouts,
+          where('category', '==', filterOptions.category)
+        );
+      }
+
+      if (filterOptions.exerciseName) {
+        queryWorkouts = query(
+          queryWorkouts,
+          where('exerciseName', '==', filterOptions.exerciseName)
+        );
+      }
+
       unsubscribe = onSnapshot(queryWorkouts, (snapshot) => {
         let docs = [];
 

@@ -6,8 +6,8 @@ import { TotalSets } from '../../components/Charts/TotalSets';
 
 import './index.css';
 export const FitnessTracker = () => {
-  const { workoutList } = useGetWorkouts();
-
+  const { workoutList } = useGetWorkouts({ category: 'chest' });
+  console.log(workoutList);
   const data = {
     options: {
       chart: {
@@ -77,22 +77,22 @@ export const FitnessTracker = () => {
   };
   return (
     <div className="chartContainer">
-      {/* <Chart
+      <Chart
         options={data.options}
         series={data.series}
         type="bar"
         width="500"
-      /> */}
+      />
 
       <TotalWeight workoutList={workoutList} title="Total weight" />
       <TotalReps workoutList={workoutList} title="Total reps" />
       <TotalSets workoutList={workoutList} title="Total sets" />
 
-      {/* <Chart
+      <Chart
         options={donutData.options}
         series={donutData.series}
         type="donut"
-      /> */}
+      />
     </div>
   );
 };
