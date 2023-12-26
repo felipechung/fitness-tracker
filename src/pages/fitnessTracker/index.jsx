@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import Chart from 'react-apexcharts';
 import { useGetWorkouts } from '../../hooks/useGetWorkouts';
 import { TotalWeight } from '../../components/Charts/TotalWeight';
@@ -6,8 +7,17 @@ import { TotalSets } from '../../components/Charts/TotalSets';
 
 import './index.css';
 export const FitnessTracker = () => {
-  const { workoutList } = useGetWorkouts({ category: 'chest' });
-  console.log(workoutList);
+  const [selectedCategory, setSelectedCategory] = useState('');
+
+  const { workoutList, getWorkoutList } = useGetWorkouts({
+    category: selectedCategory,
+  });
+
+  const handleCategoryChange = (event) => {
+    setSelectedCategory(event.target.value);
+    getWorkoutList({ category: event.target.value });
+  };
+
   const data = {
     options: {
       chart: {
@@ -77,6 +87,10 @@ export const FitnessTracker = () => {
   };
   return (
     <div className="chartContainer">
+      <select value={selectedCategory} onChange={handleCategoryChange}>
+        <option value="chest">Chest</option>
+        <option value="back">Back</option>
+      </select>
       <Chart
         options={data.options}
         series={data.series}
