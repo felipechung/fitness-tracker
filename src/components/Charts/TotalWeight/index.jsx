@@ -47,11 +47,6 @@ export const TotalWeight = ({ workoutList, title }) => {
   };
 
   return (
-    <Chart
-      options={data.options}
-      series={data.series}
-      type="line"
-      width="500"
-    />
+    <Chart options={data.options} series={data.series} type="bar" width="500" />
   );
 };

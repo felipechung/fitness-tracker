@@ -17,11 +17,7 @@ export const TotalReps = ({ workoutList, title }) => {
       xaxis: {
         categories: chartData.map((item) => item.x),
       },
-      yaxis: {
-        title: {
-          text: 'kg', // Y-axis label
-        },
-      },
+      yaxis: {},
       title: {
         text: title,
         align: 'left',
@@ -47,11 +43,6 @@ export const TotalReps = ({ workoutList, title }) => {
   };
 
   return (
-    <Chart
-      options={data.options}
-      series={data.series}
-      type="line"
-      width="500"
-    />
+    <Chart options={data.options} series={data.series} type="bar" width="500" />
   );
 };

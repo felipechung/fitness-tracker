@@ -8,7 +8,6 @@ import { useState } from 'react';
 import { useAddWorkout } from '../../../hooks/useAddWorkout';
 import { useAuth } from '../../../contexts/Auth';
 import { CustomizedSnackbar } from '../../../components/Snackbar';
-import { useGetWorkoutCategory } from '../../../hooks/useGetWorkoutCategory';
 
 export const WorkoutModal = ({ open, handleClose }) => {
   const [exerciseList, setExerciseList] = useState([]);
@@ -20,7 +19,15 @@ export const WorkoutModal = ({ open, handleClose }) => {
 
   const { userInfo } = useAuth();
   const { addWorkout } = useAddWorkout();
-  const { workoutCategoryList } = useGetWorkoutCategory();
+
+  const workoutCategoryList = [
+    'Chest',
+    'Triceps',
+    'Back',
+    'Biceps',
+    'Leg',
+    'Shoulder',
+  ];
 
   const handleCloseSnack = (event, reason) => {
     if (reason === 'clickaway') {
@@ -161,9 +168,9 @@ export const WorkoutModal = ({ open, handleClose }) => {
                   value={selectedCategory}
                   onChange={handleCategoryChange}
                 >
-                  {workoutCategoryList.map((category) => (
-                    <option key={category.id} value={category.name}>
-                      {category.name}
+                  {workoutCategoryList.map((category, index) => (
+                    <option key={index} value={category}>
+                      {category}
                     </option>
                   ))}
                 </select>

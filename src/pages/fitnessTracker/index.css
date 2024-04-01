@@ -1,4 +1,10 @@
-.chartContainer {
+.mainContainer {
   display: flex;
   flex-direction: column;
+  width: 100%;
+}
+
+.chartContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
