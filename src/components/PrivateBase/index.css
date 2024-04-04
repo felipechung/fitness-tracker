@@ -1,8 +1,9 @@
 .content {
   display: flex;
-  /* height: 100vh; */
   margin-top: 64px;
+  min-height: 100vh;
   padding: 12px 24px;
+  background-color: var(--background-color);
 }
 
 .container {

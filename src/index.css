@@ -3,7 +3,7 @@
   line-height: 1.5;
   font-weight: 400;
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
+  color: var(--text-color);
   background-color: #2e2e2e;
 
   font-synthesis: none;
@@ -11,6 +11,12 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+
+  --primary-color: #2b2b33;
+  --secondary-color: #19181d;
+  --background-color: #2d2e36;
+  --highlight-color: #dc6a11;
+  --text-color: #ffffffde;
 }
 
 a {

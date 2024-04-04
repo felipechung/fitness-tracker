@@ -39,6 +39,7 @@ export const Sidebar = () => {
       <CssBaseline />
       <AppBar
         position="fixed"
+        style={{ backgroundColor: 'var(--secondary-color)' }}
         sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
       >
         <Toolbar>
@@ -46,10 +47,12 @@ export const Sidebar = () => {
             Fitness Tracker
           </Typography>
           <Button
-            color="secondary"
             variant="contained"
             onClick={handleLogout}
-            style={{ width: '100px' }}
+            style={{
+              width: '100px',
+              backgroundColor: 'var(--highlight-color)',
+            }}
           >
             Logout
           </Button>
@@ -62,6 +65,8 @@ export const Sidebar = () => {
           '& .MuiDrawer-paper': {
             width: drawerWidth,
             boxSizing: 'border-box',
+            backgroundColor: 'var(--secondary-color)',
+            color: 'var(--text-color)',
           },
         }}
         variant="permanent"
@@ -97,7 +102,9 @@ export const Sidebar = () => {
                 selected={pathname === pathName}
                 onClick={() => navigate(pathName)}
               >
-                <ListItemIcon>{icon}</ListItemIcon>
+                <ListItemIcon sx={{ color: 'var(--text-color)' }}>
+                  {icon}
+                </ListItemIcon>
                 <ListItemText primary={title} />
               </ListItemButton>
             </ListItem>
