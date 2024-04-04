@@ -60,15 +60,20 @@ export const useGetWorkouts = () => {
   };
 
   const getWeeklyWorkoutsCount = async () => {
-    const startDate = new Date();
-    startDate.setHours(0, 0, 0, 0);
+    const now = new Date();
+    now.setHours(0, 0, 0, 0);
+
+    const startDate = new Date(now);
+    if (now.getDay() === 0) {
+      startDate.setDate(now.getDate() - 6);
+    } else {
+      startDate.setDate(now.getDate() - now.getDay() + 1);
+    }
     const endDate = new Date(startDate);
-    endDate.setDate(endDate.getDate() + 7);
+    endDate.setDate(endDate.getDate() + 6);
 
     const startDateStr = startDate.toISOString().split('T')[0];
     const endDateStr = endDate.toISOString().split('T')[0];
-
-    console.log(startDate, endDate);
 
     const queryWorkouts = query(
       workoutsCollectionRef,
