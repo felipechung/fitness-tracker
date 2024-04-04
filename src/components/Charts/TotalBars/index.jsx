@@ -1,13 +1,13 @@
 import Chart from 'react-apexcharts';
 
-export const TotalWeight = ({ workoutList, title }) => {
-  const chartData = workoutList.map((workout) => ({
-    x: workout.date,
-    y: workout.exercises.reduce(
-      (totalWeight, exercise) => totalWeight + (exercise.weight || 0),
-      0
-    ),
-  }));
+export const TotalBars = ({ chartData, title, verticalLabel }) => {
+  // const chartData = workoutList.map((workout) => ({
+  //   x: workout.date,
+  //   y: workout.exercises.reduce(
+  //     (totalWeight, exercise) => totalWeight + (exercise.weight || 0),
+  //     0
+  //   ),
+  // }));
 
   const data = {
     options: {
@@ -16,12 +16,26 @@ export const TotalWeight = ({ workoutList, title }) => {
       },
       xaxis: {
         categories: chartData.map((item) => item.x),
+        labels: {
+          style: {
+            colors: 'var(--text-color)',
+          },
+        },
       },
       yaxis: {
         title: {
-          text: 'kg', // Y-axis label
+          text: verticalLabel, // Y-axis label
+          style: {
+            color: 'var(--text-color)',
+          },
+        },
+        labels: {
+          style: {
+            colors: 'var(--text-color)',
+          },
         },
       },
+      colors: ['var(--highlight-color'],
       title: {
         text: title,
         align: 'left',
@@ -33,7 +47,7 @@ export const TotalWeight = ({ workoutList, title }) => {
           fontSize: '14px',
           fontWeight: 'bold',
           fontFamily: undefined,
-          color: '#263238',
+          color: 'var(--text-color)',
         },
       },
     },

@@ -1,11 +1,10 @@
 import { useState } from 'react';
 import { useGetWorkouts } from '../../hooks/useGetWorkouts';
-import { TotalWeight } from '../../components/Charts/TotalWeight';
-import { TotalReps } from '../../components/Charts/TotalReps';
-import { TotalSets } from '../../components/Charts/TotalSets';
+import { TotalBars } from '../../components/Charts/TotalBars';
 
 import './index.css';
 import BasicCard from '../../components/Card';
+import { getTotalReps, getTotalSets, getTotalWeight } from '../../utils';
 export const FitnessTracker = () => {
   const [selectedCategory, setSelectedCategory] = useState('');
 
@@ -17,6 +16,10 @@ export const FitnessTracker = () => {
     setSelectedCategory(event.target.value);
     getWorkoutList({ category: event.target.value });
   };
+
+  const totalWeightData = getTotalWeight(workoutList);
+  const totalRepsData = getTotalReps(workoutList);
+  const totalSetsData = getTotalSets(workoutList);
 
   // const donutData = {
   //   series: [44, 55, 41, 17, 15],
@@ -65,9 +68,16 @@ export const FitnessTracker = () => {
         <option value="back">Back</option>
       </select>
       <div className="chartContainer">
-        <TotalWeight workoutList={workoutList} title="Total weight" />
-        <TotalReps workoutList={workoutList} title="Total reps" />
-        <TotalSets workoutList={workoutList} title="Total sets" />
+        <TotalBars
+          chartData={totalWeightData}
+          title="Total weight"
+          verticalLabel={'kg'}
+        />
+
+        <TotalBars chartData={totalRepsData} title="Total reps" />
+
+        <TotalBars chartData={totalSetsData} title="Total sets" />
+
         {/* <Chart
         options={donutData.options}
         series={donutData.series}

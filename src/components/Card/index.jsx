@@ -4,19 +4,28 @@ import Typography from '@mui/material/Typography';
 
 export default function BasicCard({ title, value }) {
   return (
-    <Card sx={{ minWidth: 275 }} variant="outlined">
+    <Card
+      sx={{ minWidth: 275, backgroundColor: 'var(--secondary-color)' }}
+      variant="outlined"
+    >
       <CardContent>
-        <Typography sx={{ fontSize: 24 }} color="text.secondary" gutterBottom>
+        <Typography
+          sx={{ fontSize: 24, color: 'var(--text-color)' }}
+          gutterBottom
+        >
           {title}
         </Typography>
 
         <Typography
-          sx={{ mb: 1, fontSize: 18, alignSelf: 'flex-end' }}
-          color="text.secondary"
+          sx={{
+            mb: 1,
+            fontSize: 18,
+            alignSelf: 'flex-end',
+            color: 'var(--text-color)',
+          }}
         >
           {value}
         </Typography>
-        <Typography variant="body2"></Typography>
       </CardContent>
     </Card>
   );
