@@ -2,11 +2,11 @@ import Chart from 'react-apexcharts';
 
 export const TotalSets = ({ workoutList, title }) => {
   const chartData = workoutList.map((workout) => ({
-    x: workout.date, // x-axis will represent dates
+    x: workout.date,
     y: workout.exercises.reduce(
       (totalSets, exercise) => totalSets + (exercise.sets || 0),
       0
-    ), // y-axis will represent total weight lifted in the workout
+    ),
   }));
 
   const data = {

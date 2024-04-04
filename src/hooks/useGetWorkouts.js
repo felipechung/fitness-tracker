@@ -61,11 +61,10 @@ export const useGetWorkouts = () => {
 
   const getWeeklyWorkoutsCount = async () => {
     const startDate = new Date();
-    startDate.setHours(0, 0, 0, 0); // Start of the current day
+    startDate.setHours(0, 0, 0, 0);
     const endDate = new Date(startDate);
-    endDate.setDate(endDate.getDate() + 7); // End date is 7 days from start
+    endDate.setDate(endDate.getDate() + 7);
 
-    // Convert startDate and endDate to strings in the format YYYY-MM-DD
     const startDateStr = startDate.toISOString().split('T')[0];
     const endDateStr = endDate.toISOString().split('T')[0];
 
@@ -80,7 +79,7 @@ export const useGetWorkouts = () => {
     );
 
     const unsubscribe = onSnapshot(queryWorkouts, (snapshot) => {
-      setWeeklyWorkoutsCount(snapshot.size); // Set the count based on the snapshot size
+      setWeeklyWorkoutsCount(snapshot.size);
     });
 
     return () => unsubscribe();
@@ -88,7 +87,7 @@ export const useGetWorkouts = () => {
 
   useEffect(() => {
     getWorkoutList();
-    getWeeklyWorkoutsCount(); // Get the count of workouts for the current week
+    getWeeklyWorkoutsCount();
   }, []);
   return {
     workoutList,
