@@ -4,7 +4,12 @@ import { TotalBars } from '../../components/Charts/TotalBars';
 
 import './index.css';
 import BasicCard from '../../components/Card';
-import { getTotalReps, getTotalSets, getTotalWeight } from '../../utils';
+import {
+  categoryOptions,
+  getTotalReps,
+  getTotalSets,
+  getTotalWeight,
+} from '../../utils';
 export const FitnessTracker = () => {
   const [selectedCategory, setSelectedCategory] = useState('');
 
@@ -64,8 +69,9 @@ export const FitnessTracker = () => {
       />
       <select value={selectedCategory} onChange={handleCategoryChange}>
         <option value="">Total</option>
-        <option value="chest">Chest</option>
-        <option value="back">Back</option>
+        {categoryOptions.map((option, index) => (
+          <option key={index}>{option}</option>
+        ))}
       </select>
       <div className="chartContainer">
         <TotalBars

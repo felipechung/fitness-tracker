@@ -33,10 +33,11 @@ export const getTotalSets = (workoutList) => {
   return chartData;
 };
 
-export const exerciseOptions = [
-  'Bench press',
-  'Shoulder press',
-  'Pull over',
-  'Pull down',
-  'Leg press',
+export const categoryOptions = [
+  'Chest',
+  'Back',
+  'Biceps',
+  'Triceps',
+  'Shoulder',
+  'Leg',
 ];
