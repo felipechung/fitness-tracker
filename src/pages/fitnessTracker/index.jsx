@@ -29,7 +29,6 @@ export const FitnessTracker = () => {
   const totalSetsData = getTotalSets(workoutList);
   const { series, labels } = transformDataToSeries(workoutList);
 
-  console.log(workoutList);
   return (
     <div className="mainContainer">
       <div className="cardsContainer">
