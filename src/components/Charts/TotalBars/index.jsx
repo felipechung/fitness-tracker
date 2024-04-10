@@ -1,14 +1,6 @@
 import Chart from 'react-apexcharts';
 
 export const TotalBars = ({ chartData, title, verticalLabel }) => {
-  // const chartData = workoutList.map((workout) => ({
-  //   x: workout.date,
-  //   y: workout.exercises.reduce(
-  //     (totalWeight, exercise) => totalWeight + (exercise.weight || 0),
-  //     0
-  //   ),
-  // }));
-
   const data = {
     options: {
       chart: {

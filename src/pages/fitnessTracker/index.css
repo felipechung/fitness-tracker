@@ -8,3 +8,14 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
 }
+
+.cardsContainer {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  margin: 2rem 0;
+}
+
+.mainContainer select {
+  margin-bottom: 2rem;
+}

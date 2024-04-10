@@ -9,7 +9,9 @@ import {
   getTotalReps,
   getTotalSets,
   getTotalWeight,
+  transformDataToSeries,
 } from '../../utils';
+import { DonutChart } from '../../components/Charts/DonutChart';
 export const FitnessTracker = () => {
   const [selectedCategory, setSelectedCategory] = useState('');
 
@@ -25,48 +27,29 @@ export const FitnessTracker = () => {
   const totalWeightData = getTotalWeight(workoutList);
   const totalRepsData = getTotalReps(workoutList);
   const totalSetsData = getTotalSets(workoutList);
+  const { series, labels } = transformDataToSeries(workoutList);
 
-  // const donutData = {
-  //   series: [44, 55, 41, 17, 15],
-  //   options: {
-  //     chart: {
-  //       type: 'donut',
-  //     },
-  //     title: {
-  //       text: 'Teste',
-  //       align: 'left',
-  //       margin: 10,
-  //       offsetX: 0,
-  //       offsetY: 0,
-  //       floating: false,
-  //       style: {
-  //         fontSize: '14px',
-  //         fontWeight: 'bold',
-  //         fontFamily: undefined,
-  //         color: '#263238',
-  //       },
-  //     },
-  //     responsive: [
-  //       {
-  //         breakpoint: 480,
-  //         options: {
-  //           chart: {
-  //             width: 200,
-  //           },
-  //           legend: {
-  //             position: 'bottom',
-  //           },
-  //         },
-  //       },
-  //     ],
-  //   },
-  // };
+  console.log(workoutList);
   return (
     <div className="mainContainer">
-      <BasicCard
-        title="Workouts this week"
-        value={weeklyWorkoutsCount.toString()}
-      />
+      <div className="cardsContainer">
+        <BasicCard
+          title="Workouts this week"
+          value={weeklyWorkoutsCount.toString()}
+        />
+        <BasicCard
+          title="Workouts this week"
+          value={weeklyWorkoutsCount.toString()}
+        />{' '}
+        <BasicCard
+          title="Workouts this week"
+          value={weeklyWorkoutsCount.toString()}
+        />
+        <BasicCard
+          title="Workouts this week"
+          value={weeklyWorkoutsCount.toString()}
+        />
+      </div>
       <select value={selectedCategory} onChange={handleCategoryChange}>
         <option value="">Total</option>
         {categoryOptions.map((option, index) => (
@@ -83,12 +66,11 @@ export const FitnessTracker = () => {
         <TotalBars chartData={totalRepsData} title="Total reps" />
 
         <TotalBars chartData={totalSetsData} title="Total sets" />
-
-        {/* <Chart
-        options={donutData.options}
-        series={donutData.series}
-        type="donut"
-      /> */}
+        <DonutChart
+          title="Workout distribution"
+          chartData={series}
+          labels={labels}
+        />
       </div>
     </div>
   );

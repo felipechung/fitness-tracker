@@ -33,6 +33,20 @@ export const getTotalSets = (workoutList) => {
   return chartData;
 };
 
+export const transformDataToSeries = (workouts) => {
+  const categoryCounts = workouts.reduce((acc, workout) => {
+    const { category } = workout;
+    acc[category] = (acc[category] || 0) + 1;
+    return acc;
+  }, {});
+
+  const series = Object.values(categoryCounts);
+
+  const labels = Object.keys(categoryCounts);
+
+  return { series, labels };
+};
+
 export const categoryOptions = [
   'Chest',
   'Back',
