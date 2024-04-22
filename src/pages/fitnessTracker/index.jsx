@@ -15,7 +15,12 @@ import { DonutChart } from '../../components/Charts/DonutChart';
 export const FitnessTracker = () => {
   const [selectedCategory, setSelectedCategory] = useState('');
 
-  const { workoutList, getWorkoutList, weeklyWorkoutsCount } = useGetWorkouts({
+  const {
+    workoutList,
+    getWorkoutList,
+    weeklyWorkoutsCount,
+    monthlyWorkoutsCount,
+  } = useGetWorkouts({
     category: selectedCategory,
   });
 
@@ -29,8 +34,6 @@ export const FitnessTracker = () => {
   const totalSetsData = getTotalSets(workoutList);
   const { series, labels } = transformDataToDonutSeries(workoutList);
 
-  console.log(workoutList.length);
-
   return (
     <div className="mainContainer">
       <div className="cardsContainer">
@@ -40,7 +43,7 @@ export const FitnessTracker = () => {
         />
         <BasicCard
           title="Workouts this month"
-          value={weeklyWorkoutsCount.toString()}
+          value={monthlyWorkoutsCount.toString()}
         />{' '}
         <BasicCard
           title="Workouts this week"
@@ -49,6 +52,7 @@ export const FitnessTracker = () => {
         <BasicCard
           title="Total weight lifted"
           value={weeklyWorkoutsCount.toString()}
+          unity="kg"
         />
       </div>
       <select value={selectedCategory} onChange={handleCategoryChange}>

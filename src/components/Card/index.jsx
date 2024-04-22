@@ -2,7 +2,7 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 
-export default function BasicCard({ title, value }) {
+export default function BasicCard({ title, value, unity }) {
   return (
     <Card
       sx={{ minWidth: 275, backgroundColor: 'var(--secondary-color)' }}
@@ -24,7 +24,7 @@ export default function BasicCard({ title, value }) {
             color: 'var(--text-color)',
           }}
         >
-          {value}
+          {value} {unity && unity}
         </Typography>
       </CardContent>
     </Card>

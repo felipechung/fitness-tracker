@@ -13,6 +13,7 @@ import { useAuth } from '../contexts/Auth';
 export const useGetWorkouts = () => {
   const [workoutList, setWorkoutList] = useState([]);
   const [weeklyWorkoutsCount, setWeeklyWorkoutsCount] = useState('');
+  const [monthlyWorkoutsCount, setMonthlyWorkoutsCount] = useState('');
   const { userInfo } = useAuth();
 
   const workoutsCollectionRef = collection(db, 'workouts');
@@ -90,13 +91,41 @@ export const useGetWorkouts = () => {
     return () => unsubscribe();
   };
 
+  const getMonthlyWorkoutsCount = async () => {
+    const now = new Date();
+    now.setHours(0, 0, 0, 0);
+
+    const startDate = new Date(now.getFullYear(), now.getMonth(), 1);
+
+    const endDate = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+
+    const startDateStr = startDate.toISOString().split('T')[0];
+    const endDateStr = endDate.toISOString().split('T')[0];
+
+    const queryWorkouts = query(
+      workoutsCollectionRef,
+      where('userId', '==', userInfo.uid),
+      where('date', '>=', startDateStr),
+      where('date', '<=', endDateStr),
+      orderBy('date')
+    );
+
+    const unsubscribe = onSnapshot(queryWorkouts, (snapshot) => {
+      setMonthlyWorkoutsCount(snapshot.size);
+    });
+
+    return () => unsubscribe();
+  };
+
   useEffect(() => {
     getWorkoutList();
     getWeeklyWorkoutsCount();
+    getMonthlyWorkoutsCount();
   }, []);
   return {
     workoutList,
     getWorkoutList,
     weeklyWorkoutsCount,
+    monthlyWorkoutsCount,
   };
 };
