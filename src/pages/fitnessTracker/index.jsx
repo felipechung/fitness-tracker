@@ -9,7 +9,7 @@ import {
   getTotalReps,
   getTotalSets,
   getTotalWeight,
-  transformDataToSeries,
+  transformDataToDonutSeries,
 } from '../../utils';
 import { DonutChart } from '../../components/Charts/DonutChart';
 export const FitnessTracker = () => {
@@ -27,7 +27,9 @@ export const FitnessTracker = () => {
   const totalWeightData = getTotalWeight(workoutList);
   const totalRepsData = getTotalReps(workoutList);
   const totalSetsData = getTotalSets(workoutList);
-  const { series, labels } = transformDataToSeries(workoutList);
+  const { series, labels } = transformDataToDonutSeries(workoutList);
+
+  console.log(workoutList);
 
   return (
     <div className="mainContainer">

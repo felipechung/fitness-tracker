@@ -48,8 +48,8 @@ export const DonutChart = ({ chartData, title, labels }) => {
       options={donutData.options}
       series={donutData.series}
       type="donut"
-      width={500}
-      height={310}
+      width={600}
+      height={400}
     />
   );
 };

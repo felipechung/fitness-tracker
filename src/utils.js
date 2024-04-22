@@ -33,7 +33,7 @@ export const getTotalSets = (workoutList) => {
   return chartData;
 };
 
-export const transformDataToSeries = (workouts) => {
+export const transformDataToDonutSeries = (workouts) => {
   const categoryCounts = workouts.reduce((acc, workout) => {
     const { category } = workout;
     acc[category] = (acc[category] || 0) + 1;

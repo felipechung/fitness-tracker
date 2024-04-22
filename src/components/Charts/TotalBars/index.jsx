@@ -53,6 +53,12 @@ export const TotalBars = ({ chartData, title, verticalLabel }) => {
   };
 
   return (
-    <Chart options={data.options} series={data.series} type="bar" width="500" />
+    <Chart
+      options={data.options}
+      series={data.series}
+      type="bar"
+      width="600"
+      height="400"
+    />
   );
 };
