@@ -29,17 +29,17 @@ export const FitnessTracker = () => {
   const totalSetsData = getTotalSets(workoutList);
   const { series, labels } = transformDataToDonutSeries(workoutList);
 
-  console.log(workoutList);
+  console.log(workoutList.length);
 
   return (
     <div className="mainContainer">
       <div className="cardsContainer">
         <BasicCard
-          title="Workouts this week"
-          value={weeklyWorkoutsCount.toString()}
+          title="Total workouts"
+          value={workoutList.length.toString()}
         />
         <BasicCard
-          title="Workouts this week"
+          title="Workouts this month"
           value={weeklyWorkoutsCount.toString()}
         />{' '}
         <BasicCard
@@ -47,7 +47,7 @@ export const FitnessTracker = () => {
           value={weeklyWorkoutsCount.toString()}
         />
         <BasicCard
-          title="Workouts this week"
+          title="Total weight lifted"
           value={weeklyWorkoutsCount.toString()}
         />
       </div>
