@@ -9,6 +9,7 @@ import {
   getTotalReps,
   getTotalSets,
   getTotalWeight,
+  sumTotalWeight,
   transformDataToDonutSeries,
 } from '../../utils';
 import { DonutChart } from '../../components/Charts/DonutChart';
@@ -34,6 +35,8 @@ export const FitnessTracker = () => {
   const totalSetsData = getTotalSets(workoutList);
   const { series, labels } = transformDataToDonutSeries(workoutList);
 
+  const totalWeightCount = sumTotalWeight(workoutList);
+
   return (
     <div className="mainContainer">
       <div className="cardsContainer">
@@ -51,7 +54,7 @@ export const FitnessTracker = () => {
         />
         <BasicCard
           title="Total weight lifted"
-          value={weeklyWorkoutsCount.toString()}
+          value={totalWeightCount}
           unity="kg"
         />
       </div>

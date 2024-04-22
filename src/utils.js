@@ -1,10 +1,12 @@
 export const getTotalWeight = (workoutList) => {
   const chartData = workoutList.map((workout) => ({
     x: workout.date,
-    y: workout.exercises.reduce(
-      (totalWeight, exercise) => totalWeight + (exercise.weight || 0),
-      0
-    ),
+    y: workout.exercises.reduce((totalWeight, exercise) => {
+      const sets = exercise.sets || 0;
+      const reps = exercise.reps || 0;
+      const weight = exercise.weight || 0;
+      return totalWeight + sets * reps * weight;
+    }, 0),
   }));
   return chartData;
 };
@@ -45,6 +47,20 @@ export const transformDataToDonutSeries = (workouts) => {
   const labels = Object.keys(categoryCounts);
 
   return { series, labels };
+};
+
+export const sumTotalWeight = (data) => {
+  return data.reduce((totalAccumulator, session) => {
+    const sessionTotal = session.exercises.reduce(
+      (sessionAccumulator, exercise) => {
+        return (
+          sessionAccumulator + exercise.sets * exercise.reps * exercise.weight
+        );
+      },
+      0
+    );
+    return totalAccumulator + sessionTotal;
+  }, 0);
 };
 
 export const categoryOptions = [
