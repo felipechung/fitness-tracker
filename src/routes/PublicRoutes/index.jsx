@@ -1,5 +1,5 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { Auth } from '../../pages/Auth/index.js';
+import { Auth } from '../../pages/Auth/index.jsx';
 import { SignUp } from '../../pages/SignUp/index.jsx';
 import { routes } from '../routes';
 
