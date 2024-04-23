@@ -1,6 +1,6 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { Auth } from '../../pages/Auth';
-import { SignUp } from '../../pages/SignUp';
+import { Auth } from '../../pages/Auth/index.js';
+import { SignUp } from '../../pages/SignUp/index.jsx';
 import { routes } from '../routes';
 
 export const PublicRoutes = () => {

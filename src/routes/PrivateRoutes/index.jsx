@@ -2,7 +2,7 @@ import { Route, Navigate, Routes } from 'react-router-dom';
 import { PrivateBase } from '../../components/PrivateBase';
 import { routes } from '../routes';
 import { FitnessTracker } from '../../pages/FitnessTracker/index.js';
-import { Workouts } from '../../pages/Workouts';
+import { Workouts } from '../../pages/Workouts/index.jsx';
 
 export const PrivateRoutes = () => {
   return (
