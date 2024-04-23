@@ -12,7 +12,6 @@ import { categoryOptions } from '../../../utils';
 
 export const WorkoutModal = ({ open, handleClose }) => {
   const [exerciseList, setExerciseList] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState('');
 
   const [openSnack, setOpenSnack] = useState(false);
   const [snackMessage, setSnackMessage] = useState('');
@@ -29,10 +28,6 @@ export const WorkoutModal = ({ open, handleClose }) => {
     setOpenSnack(false);
   };
 
-  const handleCategoryChange = (event) => {
-    setSelectedCategory(event.target.value);
-  };
-
   const formik = useFormik({
     initialValues: {
       date: '',
@@ -41,6 +36,7 @@ export const WorkoutModal = ({ open, handleClose }) => {
       sets: '',
       reps: '',
       weight: '',
+      category: '',
     },
     validationSchema: yup.object({
       date: yup.string().required('Required field'),
@@ -49,6 +45,7 @@ export const WorkoutModal = ({ open, handleClose }) => {
       sets: yup.string().required('Required field'),
       reps: yup.string().required('Required field'),
       weight: yup.string().required('Required field'),
+      category: yup.string().required('Required field'),
     }),
   });
 
@@ -60,7 +57,7 @@ export const WorkoutModal = ({ open, handleClose }) => {
       date: formik.values.date,
       workoutName: formik.values.workoutName,
       exercises: exerciseList,
-      category: selectedCategory,
+      category: formik.values.category,
     });
     setOpenSnack(true);
     setSnackMessage('Workout added!');
@@ -78,6 +75,7 @@ export const WorkoutModal = ({ open, handleClose }) => {
       sets: true,
       reps: true,
       weight: true,
+      category: true,
     });
     formik.validateForm().then((errors) => {
       if (Object.keys(errors).length === 0) {
@@ -157,8 +155,9 @@ export const WorkoutModal = ({ open, handleClose }) => {
                 </label>
 
                 <select
-                  value={selectedCategory}
-                  onChange={handleCategoryChange}
+                  name="category"
+                  value={formik.values.category}
+                  onChange={formik.handleChange}
                 >
                   {categoryOptions.map((category, index) => (
                     <option key={index} value={category}>

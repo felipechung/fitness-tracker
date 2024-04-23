@@ -28,3 +28,8 @@
   font-weight: 600;
   text-align: center;
 }
+
+.workoutCardsContainer {
+  display: flex;
+  flex-direction: column-reverse;
+}

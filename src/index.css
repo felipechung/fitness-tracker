@@ -66,20 +66,20 @@ select {
   color: black;
   width: 100%;
   height: 44px;
-  border: 2px solid #ddb218;
+  border: 2px solid var(--primary-color);
   border-radius: 12px;
   box-sizing: border-box;
   padding: 0 20px;
 }
 
 input:focus {
-  border: 3px solid #c9a217;
+  border: 3px solid var(--secondary-color);
   background: #f4f4f4;
   outline: none;
 }
 
 select:focus {
-  border: 3px solid #c9a217;
+  border: 3px solid var(--secondary-color);
   background: #f4f4f4;
   outline: none;
 }

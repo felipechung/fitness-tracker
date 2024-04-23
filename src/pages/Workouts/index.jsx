@@ -41,10 +41,11 @@ export const Workouts = () => {
           </span>
         </div>
       )}
-
-      {workoutList.map((workout) => {
-        return <WorkoutCard key={workout.id} workout={workout} />;
-      })}
+      <div className="workoutCardsContainer">
+        {workoutList.map((workout) => {
+          return <WorkoutCard key={workout.id} workout={workout} />;
+        })}
+      </div>
     </div>
   );
 };
