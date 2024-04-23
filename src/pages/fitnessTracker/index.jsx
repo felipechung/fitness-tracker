@@ -58,7 +58,11 @@ export const FitnessTracker = () => {
           unity="kg"
         />
       </div>
-      <select value={selectedCategory} onChange={handleCategoryChange}>
+      <select
+        className="select"
+        value={selectedCategory}
+        onChange={handleCategoryChange}
+      >
         <option value="">Total</option>
         {categoryOptions.map((option, index) => (
           <option key={index}>{option}</option>

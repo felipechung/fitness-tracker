@@ -22,7 +22,6 @@ export default function BasicCard({ title, value, unity }) {
       <Typography
         sx={{
           fontSize: 18,
-          alignSelf: 'flex-end',
           color: 'var(--text-color)',
         }}
       >

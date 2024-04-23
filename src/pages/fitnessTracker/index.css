@@ -19,3 +19,11 @@
 .mainContainer select {
   margin-bottom: 2rem;
 }
+
+.select {
+  border-color: var(--primary-color);
+  padding: 0px;
+}
+.select:focus {
+  border-color: var(--secondary-color);
+}
