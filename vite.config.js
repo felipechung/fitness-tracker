@@ -1,14 +1,17 @@
-import { defineConfig } from "vite";
-import dns from "dns";
+import { defineConfig } from 'vite';
+import dns from 'dns';
 
-import react from "@vitejs/plugin-react";
+import react from '@vitejs/plugin-react';
 
-dns.setDefaultResultOrder("verbatim");
+dns.setDefaultResultOrder('verbatim');
 
 export default defineConfig({
   server: {
-    host: "localhost",
+    host: 'localhost',
     port: 3000,
   },
   plugins: [react()],
+  build: {
+    outDir: 'dist',
+  },
 });
