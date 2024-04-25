@@ -9,10 +9,12 @@ import { useAddWorkout } from '../../../hooks/useAddWorkout';
 import { useAuth } from '../../../contexts/Auth';
 import { CustomizedSnackbar } from '../../../components/Snackbar';
 import { categoryOptions } from '../../../utils';
+import { CustomSelect } from '../../../components/CustomSelect';
+import MenuItem from '@mui/material/MenuItem';
 
 export const WorkoutModal = ({ open, handleClose }) => {
   const [exerciseList, setExerciseList] = useState([]);
-
+  const [selectedCategory, setSelectedCategory] = useState('Chest');
   const [openSnack, setOpenSnack] = useState(false);
   const [snackMessage, setSnackMessage] = useState('');
   const [snackType, setSnackType] = useState('error');
@@ -36,7 +38,6 @@ export const WorkoutModal = ({ open, handleClose }) => {
       sets: '',
       reps: '',
       weight: '',
-      category: 'Chest',
     },
     validationSchema: yup.object({
       date: yup.string().required('Required field'),
@@ -45,7 +46,6 @@ export const WorkoutModal = ({ open, handleClose }) => {
       sets: yup.string().required('Required field'),
       reps: yup.string().required('Required field'),
       weight: yup.string().required('Required field'),
-      category: yup.string().required('Required field'),
     }),
   });
 
@@ -57,7 +57,7 @@ export const WorkoutModal = ({ open, handleClose }) => {
       date: formik.values.date,
       workoutName: formik.values.workoutName,
       exercises: exerciseList,
-      category: formik.values.category,
+      category: selectedCategory,
     });
     setOpenSnack(true);
     setSnackMessage('Workout added!');
@@ -154,17 +154,19 @@ export const WorkoutModal = ({ open, handleClose }) => {
                   Category
                 </label>
 
-                <select
+                <CustomSelect
                   name="category"
-                  value={formik.values.category}
-                  onChange={formik.handleChange}
+                  selectedOption={selectedCategory}
+                  handleChange={(event) =>
+                    setSelectedCategory(event.target.value)
+                  }
                 >
                   {categoryOptions.map((category, index) => (
-                    <option key={index} value={category}>
+                    <MenuItem key={index} value={category}>
                       {category}
-                    </option>
+                    </MenuItem>
                   ))}
-                </select>
+                </CustomSelect>
               </div>
               <div className="inputGroup">
                 <label htmlFor="Exercise Name" className="whiteBackground">

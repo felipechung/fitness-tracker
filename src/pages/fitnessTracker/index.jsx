@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { useGetWorkouts } from '../../hooks/useGetWorkouts';
 import { TotalBars } from '../../components/Charts/TotalBars';
 
+import MenuItem from '@mui/material/MenuItem';
+
 import './index.css';
 import BasicCard from '../../components/Card';
 import {
@@ -13,8 +15,9 @@ import {
   transformDataToDonutSeries,
 } from '../../utils';
 import { DonutChart } from '../../components/Charts/DonutChart';
+import { CustomSelect } from '../../components/CustomSelect';
 export const FitnessTracker = () => {
-  const [selectedCategory, setSelectedCategory] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('Chest');
 
   const {
     workoutList,
@@ -58,16 +61,18 @@ export const FitnessTracker = () => {
           unity="kg"
         />
       </div>
-      <select
-        className="select"
-        value={selectedCategory}
-        onChange={handleCategoryChange}
+
+      <CustomSelect
+        selectedOption={selectedCategory}
+        handleChange={handleCategoryChange}
       >
-        <option value="">Total</option>
         {categoryOptions.map((option, index) => (
-          <option key={index}>{option}</option>
+          <MenuItem key={index} value={option}>
+            {option}
+          </MenuItem>
         ))}
-      </select>
+      </CustomSelect>
+
       <div className="chartContainer">
         <TotalBars
           chartData={totalWeightData}
