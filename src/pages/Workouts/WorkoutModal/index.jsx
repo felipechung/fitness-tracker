@@ -36,7 +36,7 @@ export const WorkoutModal = ({ open, handleClose }) => {
       sets: '',
       reps: '',
       weight: '',
-      category: '',
+      category: 'Chest',
     },
     validationSchema: yup.object({
       date: yup.string().required('Required field'),
